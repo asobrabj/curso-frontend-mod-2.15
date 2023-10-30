@@ -20,26 +20,25 @@ export const PokemonCard = ({
 
   const handleChangePokemon = () => {
     if (createPokemon) {
-      axios.post('http://localhost:4000/new-pokemon', {
-        name: nameInput,
-        imageUrl: imageUrlInput,
-        evolution: Number(evolutionInput)
-      })
+      // axios.post('http://localhost:3000/new-pokemon', {
+      //   name: nameInput,
+      //   imageUrl: imageUrlInput,
+      //   evolution: Number(evolutionInput)
+      // })
       setCreatePokemon(false)
     } else {
-      axios.put(`http://localhost:4000/update-pokemon/${id}`, {
-        name: nameInput,
-        imageUrl: imageUrlInput,
-        evolution: Number(evolutionInput)
-      })
+      // axios.put(`http://localhost:3000/update-pokemon/${id}`, {
+      //   name: nameInput,
+      //   imageUrl: imageUrlInput,
+      //   evolution: Number(evolutionInput)
+      // })
       setEditPokemon(false)
     }
     setUpdateList(updateList + 1)
   }
 
   const handleDeletePokemon = () => {
-    axios.delete(`http://localhost:4000/delete-pokemon/${id}`)
-    setUpdateList(updateList + 1)
+    setUpdateList(updateList.filter((pokemon) => pokemon.id !== id));
   }
 
   return (
@@ -71,13 +70,26 @@ export const PokemonCard = ({
             />
           </label>
           <button
-            onClick={() =>
+            onClick={() => {
               createPokemon ? setCreatePokemon(false) : setEditPokemon(false)
-            }
+            }}
           >
             Cancela
           </button>
-          <button onClick={handleChangePokemon}>Confirma</button>
+          <button onClick={() => {
+            handleChangePokemon();
+            const updatedList = [
+              ...updateList,
+              {
+                id: updateList.length,
+                name: nameInput,
+                imageUrl: imageUrlInput,
+                evolution: Number(evolutionInput)
+              }
+            ];
+            console.log(updatedList);
+            setUpdateList(updatedList);
+          }}>Confirma</button>
         </div>
       ) : (
         <>
@@ -85,7 +97,7 @@ export const PokemonCard = ({
           <img src={image} alt={name} />
           <h3>Estágio de evolução: {evolution}</h3>
           <button onClick={() => setEditPokemon(true)}>Alterar</button>
-          <button onClick={handleDeletePokemon}>Remover</button>
+          <button onClick={() => handleDeletePokemon()}>Remover</button>
         </>
       )}
     </div>

@@ -1,5 +1,13 @@
-## Organização de códigos
-  Esse projeto foi criado como exercício 
+## Organização de códigos e uso do teclado
+  Esse projeto foi criado como exercício. 
+  Convençoes de um código react.
+  Documentação de fluxo e layout.
+  Documentado componentes com Storybook.
+  Funcionalidade: 
+	- Cadastro de Pokemon com seu nivel de evolução e url da imagem
+    - Listando logo abaixo os cadastrados
+	- Com possibilidade de alterar e removê-los da lista
+   
 
 
 ### npx create-react-app projeto
